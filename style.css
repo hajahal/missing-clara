@@ -307,3 +307,19 @@ button.action:hover{background:rgba(0,255,180,.2);}
   0%{transform:translateX(0);}
   100%{transform:translateX(1200px);}
 }
+/* --- Mobile layout fixes --- */
+@media (max-width: 768px) {
+
+  .window {
+    max-width: 92vw !important;
+    max-height: 80vh !important;
+    left: 4vw !important;
+    top: 10vh !important;
+  }
+
+  .window-content {
+    max-height: calc(80vh - 42px);
+    overflow-y: auto;
+  }
+
+}

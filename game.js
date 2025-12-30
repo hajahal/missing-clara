@@ -5,6 +5,8 @@
 
 const $ = (q) => document.querySelector(q);
 const el = (tag, cls) => { const n = document.createElement(tag); if (cls) n.className = cls; return n; };
+const IS_MOBILE = window.matchMedia("(pointer: coarse)").matches;
+
 
 const SAVE_KEY = "last-seen-kara-save-v2";
 
