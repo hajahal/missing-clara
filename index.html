@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LAST SEEN: KARA</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="A haunted 90s desktop horror mystery. Case files, dial-up BBS, and a rule you must not break." />
+</head>
+<body>
+  <div id="boot" class="boot" tabindex="0" role="button" aria-label="Boot screen. Press Enter or click to continue.">
+    <div class="boot-inner">
+      <pre class="boot-text" id="bootText"></pre>
+      <div class="boot-hint">Press <b>ENTER</b> or <b>CLICK</b> to continue</div>
+    </div>
+  </div>
+
+  <div id="crt" class="crt"></div>
+
+  <div id="desktop" class="desktop hidden">
+    <div class="topbar bevel">
+      <div class="brand">KX-OS 95</div>
+      <div class="clock" id="clock"></div>
+    </div>
+
+    <div class="icons" id="icons"></div>
+
+    <div class="taskbar bevel">
+      <button id="startBtn" class="startBtn bevelBtn">Start</button>
+      <div class="taskbar-mid" id="taskbarMid"></div>
+      <div class="taskbar-right">
+        <button id="muteBtn" class="muteBtn bevelBtn" title="Mute/Unmute">🔊</button>
+        <span class="status" id="statusLight">●</span>
+        <span class="statusText" id="statusText">READY</span>
+      </div>
+    </div>
+
+    <div id="startMenu" class="startMenu bevel hidden">
+      <button class="startItem bevelBtn" data-action="newGame">New Game</button>
+      <button class="startItem bevelBtn" data-action="load">Load</button>
+      <button class="startItem bevelBtn" data-action="save">Save</button>
+      <button class="startItem bevelBtn" data-action="softReboot">Reboot</button>
+      <button class="startItem bevelBtn" data-action="reset">Hard Reset</button>
+      <div class="startDivider"></div>
+      <button class="startItem bevelBtn" data-action="about">About</button>
+      <button class="startItem bevelBtn" data-action="weird">Weird Site</button>
+    </div>
+
+    <div id="windows"></div>
+
+    <div id="signal" class="signal hidden">
+      <div class="signal-text bevel" id="signalText"></div>
+    </div>
+
+    <div id="screensaver" class="screensaver hidden" aria-hidden="true">
+      <div class="ss-inner">
+        <div class="ss-title">SCREENSAVER</div>
+        <div class="ss-sub">REFLECTION MODE</div>
+        <div class="ss-ghost" id="ssGhost"></div>
+        <div class="ss-hint">Move mouse or press any key</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tiny click (still used) -->
+  <audio id="sndClick" preload="auto">
+    <source src="data:audio/wav;base64,UklGRhQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+
+  <script src="game.js"></script>
+</body>
+</html>
