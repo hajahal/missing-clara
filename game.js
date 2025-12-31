@@ -5,7 +5,6 @@
 
 const $ = (q) => document.querySelector(q);
 const el = (tag, cls) => { const n = document.createElement(tag); if (cls) n.className = cls; return n; };
-const IS_MOBILE = window.matchMedia("(pointer: coarse)").matches;
 
 
 const SAVE_KEY = "last-seen-kara-save-v2";
@@ -80,7 +79,9 @@ const bootLines = [
   "",
   "NOTE: Case Archive directory flagged 'SENSITIVE'.",
   "",
-  "Press ENTER to continue."
+  "If you are reading this the case file has reached you.",
+  "",
+  ""
 ];
 
 function nowClock(){
@@ -281,8 +282,9 @@ function maybeSignal(tag="..."){
       "Don’t look behind the glass.",
       "She’s not where they said.",
       "Stop typing her name.",
-      "The house remembers."
-    ][Math.floor(Math.random()*6)];
+      "The house remembers.",
+      "This is not a game."
+    ][Math.floor(Math.random()*7)];
 
     flashSignal(tag, msg, 1200, true);
     setTimeout(()=>setStatus("READY", false), 900);
