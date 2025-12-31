@@ -234,6 +234,40 @@ const AudioEngine = (() => {
   return { ensure, setMuted, startAmbient, uiClick, modemChirp, scareBurst, setHumIntensity };
 })();
 
+// --- Unsettling consistency-breaker (one-time, low probability) ---
+const GLITCH_PROB = 0.02; // 2% chance (set 0.01–0.03)
+const GLITCH_KEY = "tmsp_glitches_v1";
+
+function loadGlitchState() {
+  try {
+    return JSON.parse(localStorage.getItem(GLITCH_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function saveGlitchState(state) {
+  localStorage.setItem(GLITCH_KEY, JSON.stringify(state));
+}
+
+// Returns true only once per glitch id (per player/device), and only if RNG hits.
+function shouldGlitchOnce(id, prob = GLITCH_PROB) {
+  const state = loadGlitchState();
+  if (state[id]) return false; // already happened
+  if (Math.random() >= prob) return false; // no RNG hit
+  state[id] = true;
+  saveGlitchState(state);
+  return true;
+}
+
+// Call this to run a one-time glitch immediately (safe wrapper)
+function runOneTimeGlitch(id, fn, prob = GLITCH_PROB) {
+  if (shouldGlitchOnce(id, prob)) {
+    try { fn(); } catch (e) { console.warn("Glitch failed:", id, e); }
+  }
+}
+
+
 /* ---------------- Helpers ---------------- */
 
 function setStatus(text, warn=false){
@@ -368,8 +402,19 @@ function createWindow({id, title, icon="■", x=280, y=80, w=620, h=380, content
   node.style.height = h+"px";
   node.style.zIndex = (++zTop);
 
+  // --- subtle one-time consistency breaks (UNEXPLAINED) ---
+  runOneTimeGlitch("misalign_window", () => {
+    glitchWindowMisalign(node); // 1–2px offset
+  }, 0.02);
+
   const titlebar = el("div","winTitle");
   titlebar.innerHTML = `<span class="dot">${icon}</span><span>${escapeHtml(title)}</span>`;
+
+  // Brief wrong title (one-time). Delay a hair so it feels like a render glitch.
+  runOneTimeGlitch("wrong_title", () => {
+    setTimeout(() => glitchTitleBarWrongName(node, "SYSTEM"), 120);
+  }, 0.015);
+
   const btns = el("div","winBtns");
   const bMin = el("button","winBtn bevelBtn"); bMin.textContent = "_";
   const bClose = el("button","winBtn bevelBtn"); bClose.textContent = "X";
@@ -413,6 +458,53 @@ function createWindow({id, title, icon="■", x=280, y=80, w=620, h=380, content
 
   setStatus("OPEN");
 }
+
+
+// 1) Window opens 1–2px misaligned (once)
+function glitchWindowMisalign(win) {
+  const dx = (Math.random() < 0.5 ? -1 : 1) * (1 + Math.floor(Math.random() * 2)); // ±1..±2
+  const dy = (Math.random() < 0.5 ? -1 : 1) * (1 + Math.floor(Math.random() * 2));
+  const left = parseInt(win.style.left || "0", 10) || win.offsetLeft || 0;
+  const top = parseInt(win.style.top || "0", 10) || win.offsetTop || 0;
+  win.style.left = (left + dx) + "px";
+  win.style.top  = (top + dy) + "px";
+}
+
+// 2) Title bar briefly shows the wrong name (once)
+function glitchTitleBarWrongName(win, wrongText = "SYSTEM") {
+  const titleEl = win.querySelector(".titlebar-title, .window-title, .title, .titlebar span");
+  if (!titleEl) return;
+  const original = titleEl.textContent;
+
+  // Briefly swap then restore
+  titleEl.textContent = wrongText;
+  setTimeout(() => { titleEl.textContent = original; }, 250 + Math.floor(Math.random() * 250));
+}
+
+// 3) Icon label flickers for one frame (once)
+function glitchIconLabelFlicker(iconEl, flickerText = "DON'T") {
+  const label = iconEl.querySelector(".icon-label, .label, span");
+  if (!label) return;
+  const original = label.textContent;
+
+  // One-frame flicker using rAF
+  label.textContent = flickerText;
+  requestAnimationFrame(() => {
+    label.textContent = original;
+  });
+}
+
+// 4) Dialog opens with no close button (once)
+function glitchDialogNoClose(dialogEl) {
+  // Attempt common close selectors; adapt to yours if needed
+  const closeBtn = dialogEl.querySelector(".close, .btn-close, .window-close, [data-close]");
+  if (closeBtn) closeBtn.style.display = "none";
+
+  // If you have a titlebar close X:
+  const titleClose = dialogEl.querySelector(".titlebar-buttons .close, .titlebar .close");
+  if (titleClose) titleClose.style.display = "none";
+}
+
 
 /* ---------------- Weird icon set ---------------- */
 
