@@ -718,7 +718,7 @@ Rule (decoded):
       <button class="action" id="pagerTry">Submit</button>
     </div>
     <div class="small muted" style="margin-top:10px">
-      Expected format: <span class="badge">cc willow gate</span>
+      
     </div>
   `;
 
