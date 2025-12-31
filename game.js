@@ -1901,21 +1901,44 @@ function openUnderneathTxt(canTrue){
     <div><b>underneath.txt</b></div>
     <hr/>
     <pre class="muted">
-If you are reading this, you refused it.
-If you refused it, it is still outside.
+You are reading this because you refused.
 
-The house is a mouth.
-The basement is a throat.
-Underneath is where it keeps what it can’t wear.
+Refusal was logged.
+It was not accepted.
 
-Coordinates (approx):
-60.2050 N
-24.6550 E
+The object remains outside,
+which is worse than inside.
 
-Note:
-DO NOT DIG ALONE.
-DO NOT BRING A MIRROR.
-BRING LIGHT.
+There was no house at first.
+The house assembled itself when containment failed.
+
+The structure is not architectural.
+It is anatomical.
+
+The entrance behaves like lips.
+The basement behaves like a throat that keeps trying again.
+Below that is where it stores the excess —
+things it cannot convincingly resemble.
+
+Do not call it hiding.
+It is being kept.
+
+Location (approximate — drift observed):
+60.2047 N
+24.6539 E
+
+The soil compresses underfoot as if hollow.
+Voices travel downward faster than they should.
+If you hear your own voice, leave immediately.
+
+FIELD NOTES:
+– Do NOT excavate alone
+– Do NOT bring mirrors (it rehearses through reflection)
+– Bring sustained light, not flash
+– If the light fails, assume it has learned your outline
+– Refusal does not end the process
+
+END FRAGMENT
     </pre>
   `;
   addNote("underneath.txt: coordinates + warning.");
