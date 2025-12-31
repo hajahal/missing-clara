@@ -81,6 +81,7 @@ const bootLines = [
   "",
   "If you are reading this the case file has reached you.",
   "",
+  "Review the last known timeline.",
   ""
 ];
 
@@ -2158,7 +2159,7 @@ function initDesktop(){
   // load hint
   const hasSave = !!localStorage.getItem(SAVE_KEY);
   if (!S.started){
-    flashSignal("SYSTEM", hasSave ? "Save detected.\nStart → Load to continue.\nOr New Game." : "Start → New Game", 1500, false);
+    flashSignal("SYSTEM", hasSave ? "Save detected.\nStart → Load to continue.\nOr New Game." : "Start → New Game.", 2000, false);
   }
 
   // input tracking for screensaver
