@@ -18,4 +18,3 @@ Play:
 - Start menu → New Game
 - Double-click icons, read mail, unlock diary, invert negative, then choose an ending.
 
-Optional desktop app: see Electron instructions in the chat response.
