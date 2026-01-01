@@ -2037,7 +2037,7 @@ function openAbout(){
     <div><b>About</b></div>
     <hr/>
     <pre class="muted">
-LAST SEEN: KARA — Weird Web Edition
+LAST SEEN: KARA 
 
 Controls:
 - Double-click desktop icons
